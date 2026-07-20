@@ -1,0 +1,30 @@
+[
+    {
+        "testCase": "Valid email and Password",
+        "email": "zuni@gmail.com",
+        "password": "",
+        "expectedMessage": "success",
+        "isValidUser":true
+    },
+    {
+        "testCase": "Invalid Password",
+        "email": "zuni@gmail.com",
+        "password": "wrong123",
+        "expectedMessage": "Warning: No match for E-Mail Address and/or Password.",
+        "isValidUser":false
+    },
+    {
+        "testCase": "Invalid Username",
+        "email": "wrong@gmail.com",
+        "password": "123456789",
+        "expectedMessage": "Warning: No match for E-Mail Address and/or Password.",
+        "isValidUser":false
+    },
+    {
+        "testCase": "Empty Username",
+        "email": "",
+        "password": "123456789",
+        "expectedMessage": "Warning: No match for E-Mail Address and/or Password.",
+        "isValidUser":false
+    }
+]

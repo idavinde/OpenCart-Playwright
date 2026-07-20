@@ -1,0 +1,4 @@
+testCase,email,password,expectedMessage,isValidUser
+Invalid Password,zuni@gmail.com,wrong123,Warning: No match for E-Mail Address and/or Password.,false
+Invalid Username,wrong@gmail.com,123456789,Warning: No match for E-Mail Address and/or Password.,false
+Empty Username,,123456789,Warning: No match for E-Mail Address and/or Password.,false
