@@ -1,4 +1,5 @@
 import { Locator, Page } from "@playwright/test";
+import { HomePage } from "./HomePage";
 
 export class BasePage{
 
@@ -19,6 +20,7 @@ export class BasePage{
        await this.logoutLocator.click();
        await this.continueBtn.waitFor({ state: 'visible' });
        await this.continueBtn.click();
+
     }
 
 }

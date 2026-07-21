@@ -3,7 +3,7 @@ import { BasePage } from './BasePage';
 
 export class MyAccountPage extends BasePage{
 
-    //private readonly page:Page;
+    
     private readonly myAccountHeadingLocator : Locator;
 
     constructor(page:Page){

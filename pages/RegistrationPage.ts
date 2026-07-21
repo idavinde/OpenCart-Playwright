@@ -10,9 +10,9 @@ export class RegistrationPage{
     private readonly emailTextBoxLocator : Locator ;
     private readonly passwordTextBoxLocator : Locator ;
     private readonly subscribeBtnLocator :Locator ;
-    private readonly privatePolicyBtnLocator : Locator;
+    private readonly privacyPolicyCheckboxLocator : Locator;
     private readonly continueBtnLocator :Locator;
-    private readonly sucessHeadingLocator : Locator;
+    private readonly successHeadingLocator : Locator;
 
 
 
@@ -23,9 +23,9 @@ export class RegistrationPage{
         this.emailTextBoxLocator = page.getByRole('textbox',{name:'E-mail'});
         this.passwordTextBoxLocator = page.getByRole('textbox', {name:'Password'});
         this.subscribeBtnLocator = page.locator('#input-newsletter');
-        this.privatePolicyBtnLocator = page.locator('.text-end input[type="checkbox"]');
+        this.privacyPolicyCheckboxLocator = page.locator('.text-end input[type="checkbox"]');
         this.continueBtnLocator = page.getByRole('button', {name:'Continue'});
-        this.sucessHeadingLocator= page.locator('h1:has-text("Your Account Has Been Created!")')
+        this.successHeadingLocator= page.locator('h1:has-text("Your Account Has Been Created!")')
 
     }
 
@@ -50,15 +50,15 @@ export class RegistrationPage{
         await this.passwordTextBoxLocator.fill(password);
     }
 
-    async setSubsciber(){
+    async selectSubsciber(){
 
         await this.subscribeBtnLocator.click();
 
     }
 
-    async setPrivatePolicy(){
+    async acceptPrivatePolicy(){
 
-        await this.privatePolicyBtnLocator.click();
+        await this.privacyPolicyCheckboxLocator.click();
     }
 
     async clickContinueButton(){
@@ -66,9 +66,9 @@ export class RegistrationPage{
         await this.continueBtnLocator.click();
     }
 
-    async getConfirmationMsg(): Promise<string>{
+    async getConfirmationMessage(): Promise<string>{
 
-        return await this.sucessHeadingLocator.textContent() ?? '';
+        return await this.successHeadingLocator.textContent() ?? '';
     }
 
 
@@ -78,10 +78,10 @@ export class RegistrationPage{
         await this.setLastName(userData.lastName);
         await this.setEmail(userData.email);
         await this.setPassword(userData.password);
-        await this.setSubsciber();
-        await this.setPrivatePolicy();
+        await this.selectSubsciber();
+        await this.acceptPrivatePolicy();
         await this.clickContinueButton();
-        await expect(this.sucessHeadingLocator).toBeVisible() ;
+        await expect(this.successHeadingLocator).toBeVisible() ;
     }
 
 

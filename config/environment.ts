@@ -1,17 +1,25 @@
-import dotenv from 'dotenv'
+import dotenv from 'dotenv';
 
 dotenv.config();
 
-export const ENV= {
+function requireEnvironmentVariable(name: string): string {
+  const value = process.env[name];
 
-    baseURL: process.env.BASE_URL!,
-    email: process.env.EMAIL!,
-    password: process.env.PASSWORD!,
-    
-    dbHost : process.env.DB_HOST!,
-    dbUser : process.env.DB_USER!,
-    dbPassword : process.env.DB_PASSWORD!,
-    dbName: process.env.DB_NAME!,
-    dbPort: process.env.DB_PORT!
+  if (!value?.trim()) {
+    throw new Error(`Missing required environment variable: ${name}`);
+  }
 
+  return value;
 }
+
+export const ENV = {
+  baseURL: requireEnvironmentVariable('BASE_URL'),
+  email: requireEnvironmentVariable('EMAIL'),
+  password: requireEnvironmentVariable('PASSWORD'),
+
+  dbHost: requireEnvironmentVariable('DB_HOST'),
+  dbUser: requireEnvironmentVariable('DB_USER'),
+  dbPassword: requireEnvironmentVariable('DB_PASSWORD'),
+  dbName: requireEnvironmentVariable('DB_NAME'),
+  dbPort: requireEnvironmentVariable('DB_PORT'),
+} as const;

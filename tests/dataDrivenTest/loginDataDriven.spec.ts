@@ -1,17 +1,7 @@
 import { test, expect } from '@playwright/test';
-import { HomePage } from '../../pages/HomePage';
-import { LoginPage } from '../../pages/LoginPage'
-import { MyAccountPage } from '../../pages/MyAccountPage';
 import { LoginData } from '../../types/LoginData';
 import { DataProvider } from '../../dataProvider/DataProvider';
-import { createLoginTests } from '../../utility/createLoginTest';
-
-let homePage : HomePage;
-let loginPage :LoginPage;
-let AccountPage : MyAccountPage;
-
-
-
+import { createLoginTests } from '../../utility/createLoginTests';
 
 
 test.describe("Login Tests", () => {

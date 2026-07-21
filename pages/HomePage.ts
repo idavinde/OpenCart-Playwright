@@ -19,42 +19,21 @@ export class HomePage{
 
     }
 
-   async  clickLoginLink(): Promise<void>{
+   async  clickLoginLink(): Promise<void>{ 
         
-    try{
         await this.loginLink.click();
-        }
-
-     catch(error){
-            console.log(`Exception occurred while clicking 'Login': ${error}`);
-            throw error;
-        }
     }
 
     async clickRegistrationLink(): Promise<void>{
 
-        try{
-
         await this.registrationLink.click();
 
-        }
-        catch(error){
-            console.log(`Exception occurred while clicking 'Register': ${error}`);
-            throw error;
-        }
     }
 
     async clickMyAccountButton(): Promise<void>{
         
-        try{
-
         await this.myAccountBtn.click();
 
-        }
-        catch(error){
-            console.log(`Exception occurred while clicking 'My Account': ${error}`);
-            throw error;
-        }
     }
 
     async goToLogin(): Promise <LoginPage>{
