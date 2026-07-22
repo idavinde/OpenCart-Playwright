@@ -1,7 +1,8 @@
 import{expect,Locator, Page} from '@playwright/test'
 import { MyAccountPage } from './MyAccountPage';
+import { BasePage } from './BasePage';
 
-export class LoginPage{
+export class LoginPage extends BasePage{
 
     private readonly emailTextBoxLocator : Locator;
     private readonly passwordTextBoxLocator : Locator ;
@@ -9,7 +10,7 @@ export class LoginPage{
     private readonly errorMessageLocator: Locator
 
     constructor(page: Page){
-
+        super(page);
         this.emailTextBoxLocator= page.getByRole('textbox',{name: 'E-Mail Address'});
         this.passwordTextBoxLocator = page.getByRole('textbox', {name: 'Password'});
         this.loginButtonLocator = page.getByRole('button', {name: 'Login'})

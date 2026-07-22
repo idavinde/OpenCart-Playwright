@@ -1,10 +1,10 @@
 import{Page, Locator, expect } from '@playwright/test'
 import { UserData } from '../types/UserData';
+import { BasePage } from './BasePage';
 
 
-export class RegistrationPage{
+export class RegistrationPage extends BasePage{
 
-    private readonly page : Page;
     private readonly firstNameTextBoxLocator : Locator ;
     private readonly lastNameTextBoxLocator : Locator ; 
     private readonly emailTextBoxLocator : Locator ;
@@ -14,10 +14,10 @@ export class RegistrationPage{
     private readonly continueBtnLocator :Locator;
     private readonly successHeadingLocator : Locator;
 
-
-
     constructor(page:Page){
-        this.page=page;
+        
+        super(page);
+
         this.firstNameTextBoxLocator = page.getByRole('textbox', {name:'First Name'});
         this.lastNameTextBoxLocator = page.getByRole('textbox', {name:'Last Name'});
         this.emailTextBoxLocator = page.getByRole('textbox',{name:'E-mail'});
