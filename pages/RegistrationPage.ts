@@ -3,6 +3,7 @@ import { UserData } from '../types/UserData';
 import { BasePage } from './BasePage';
 
 
+
 export class RegistrationPage extends BasePage{
 
     private readonly firstNameTextBoxLocator : Locator ;
@@ -12,7 +13,18 @@ export class RegistrationPage extends BasePage{
     private readonly subscribeBtnLocator :Locator ;
     private readonly privacyPolicyCheckboxLocator : Locator;
     private readonly continueBtnLocator :Locator;
-    private readonly successHeadingLocator : Locator;
+    private readonly verifyPageHeading: Locator ;
+
+    //errors
+
+    private readonly firstNameErrorLocator: Locator;
+    private readonly lastNameErrorLocator : Locator;
+    private readonly emailErrorLocator: Locator;
+    private readonly passwordErrorLocator : Locator;
+    private readonly privacyPolicyErrorLocator : Locator;
+    private readonly existUserEmailErrorLocator : Locator;
+
+    
 
     constructor(page:Page){
         
@@ -25,7 +37,16 @@ export class RegistrationPage extends BasePage{
         this.subscribeBtnLocator = page.locator('#input-newsletter');
         this.privacyPolicyCheckboxLocator = page.locator('.text-end input[type="checkbox"]');
         this.continueBtnLocator = page.getByRole('button', {name:'Continue'});
-        this.successHeadingLocator= page.locator('h1:has-text("Your Account Has Been Created!")')
+        this.verifyPageHeading = page.locator('#content').getByRole('heading', {name: 'Register Account'});
+
+        //error
+
+        this.firstNameErrorLocator = page.locator('#error-firstname');
+        this.lastNameErrorLocator = page.locator('#error-lastname');
+        this.emailErrorLocator = page.locator('#error-email')
+        this. passwordErrorLocator= page.locator('#error-password');
+        this.privacyPolicyErrorLocator = page.locator('#alert .alert-danger');
+        this.existUserEmailErrorLocator = page.locator('#alert .alert-danger');
 
     }
 
@@ -50,41 +71,78 @@ export class RegistrationPage extends BasePage{
         await this.passwordTextBoxLocator.fill(password);
     }
 
-    async selectSubsciber(){
+    async selectSubsciber(accept: boolean): Promise<void>{
 
-        await this.subscribeBtnLocator.click();
+        await this.subscribeBtnLocator.setChecked(accept);
 
     }
 
-    async acceptPrivatePolicy(){
+    async acceptPrivatePolicy(accept:boolean): Promise<void>{
 
-        await this.privacyPolicyCheckboxLocator.click();
+        await this.privacyPolicyCheckboxLocator.setChecked(accept);
     }
 
-    async clickContinueButton(){
+    async submitRegistrationForm(): Promise<void>{
 
         await this.continueBtnLocator.click();
     }
 
-    async getConfirmationMessage(): Promise<string>{
-
-        return await this.successHeadingLocator.textContent() ?? '';
-    }
 
 
-    async completeRegistration(userData: UserData): Promise<void>{
+    async completeRegistration(userData: UserData , subscribeToNewsLetter :boolean = true): Promise<void>{
 
         await this.setFirstName(userData.firstName);
         await this.setLastName(userData.lastName);
         await this.setEmail(userData.email);
         await this.setPassword(userData.password);
-        await this.selectSubsciber();
-        await this.acceptPrivatePolicy();
-        await this.clickContinueButton();
-        await expect(this.successHeadingLocator).toBeVisible() ;
+        await this.selectSubsciber(subscribeToNewsLetter);
+        await this.acceptPrivatePolicy(true);
+        await this.submitRegistrationForm();
+
     }
 
+    async fillRegistrationForm(userData: UserData): Promise<void>{
 
+         await this.setFirstName(userData.firstName);
+        await this.setLastName(userData.lastName);
+        await this.setEmail(userData.email);
+        await this.setPassword(userData.password);
+
+    }
+
+   async verifyRegisterAccountHeading():Promise<string>{
+        return await this.verifyPageHeading.innerText();
+    }
+
+     getFirstNameError(): Locator{
+
+        return  this.firstNameErrorLocator ;
+    }
+
+     getLastNameError(): Locator{
+
+        return  this.lastNameErrorLocator ;
+    }
+
+     getEmailError(): Locator{
+
+        return  this.emailErrorLocator ;
+    }
+
+     getPasswordError(): Locator{
+
+        return  this.passwordErrorLocator ;
+    }
+
+     getPrivacyPolicyError(): Locator{
+
+        return  this.privacyPolicyErrorLocator ;
+    }
+
+    getExistUserEmailError(): Locator{
+        
+        return this.existUserEmailErrorLocator;
+    }
 
 
 

@@ -1,6 +1,5 @@
 import { Locator, Page } from "@playwright/test"
 
-
 export type Currency = 'EUR' | 'GBP' | 'USD';
 
 export class HeaderComponent{
@@ -25,9 +24,10 @@ export class HeaderComponent{
   private readonly euroLocator: Locator;
   private readonly poundLocator: Locator;
   private readonly  usDollarLocator: Locator;
-
+  
 
   constructor(page:Page){
+    
     const topHeader = page.locator("#top");
     // currency
     const currencyDropdown = topHeader.locator('#form-currency .dropdown');
@@ -59,6 +59,7 @@ export class HeaderComponent{
 
 
   async clickMyAccountDropDown(): Promise<void>{
+
     if (!(await this.myAccountMenuLocator.isVisible())) {
     await this.myAccountDropdownLocator.click();
     }
@@ -67,6 +68,7 @@ export class HeaderComponent{
   async clickWishList(): Promise<void>{
 
     await this.wishListLocator.click();
+    
 
   }
 
@@ -82,53 +84,53 @@ export class HeaderComponent{
 
   }
 
-  async clickRegistrationLink(): Promise<void>{
+  async goToRegistration(): Promise<void>{
     
     await this.clickMyAccountDropDown();
     await this.registrationLinkLocator.click();
+    
 
   }
 
-   async clickLoginLink(): Promise<void>{
-    
+   async goToLogin(): Promise<void>{
+
     await this.clickMyAccountDropDown();
     await this.loginLinkLocator.click();
-
-   
+    
 
   }
 
-  async clickMyAccountLink(): Promise<void>{
+  async goToMyAccount():Promise<void> {
+
     await this.clickMyAccountDropDown();
     await this.myAccountLinkLocator.click();
-
-    
   }
 
-  async clickOrderHistoryLink(): Promise<void>{
+  async goToOrderHistory(): Promise<void>{
+
     await this.clickMyAccountDropDown();
     await this.orderHistoryLinkLocator.click();
-
     
   }
 
 
-  async clickTransactionsLink(): Promise<void>{
-    
+  async goToTransactions(): Promise<void>{
+
     await this.clickMyAccountDropDown();
     await this.transactionLinkLocator.click();
    
   }
 
 
-  async clickDownloadsLink(): Promise<void>{
+  async goToDownloads(): Promise<void>{
+
     await this.clickMyAccountDropDown();
     await this.downloadsLinkLocator.click();
 
-
   }
 
-  async clickLogoutLink(): Promise<void>{
+  async logout(): Promise<void>{
+
     await this.clickMyAccountDropDown();
     await this.logoutLinkLocator.click();
   }
