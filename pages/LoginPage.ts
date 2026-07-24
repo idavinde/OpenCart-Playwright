@@ -1,41 +1,44 @@
-import{expect,Locator, Page} from '@playwright/test'
-import { MyAccountPage } from './MyAccountPage';
+import{Locator, Page} from '@playwright/test'
 import { BasePage } from './BasePage';
+
 
 export class LoginPage extends BasePage{
 
     private readonly emailTextBoxLocator : Locator;
     private readonly passwordTextBoxLocator : Locator ;
     private readonly loginButtonLocator : Locator ;
-    private readonly errorMessageLocator: Locator
+    private readonly errorMessageLocator: Locator;
+    private readonly newCustomerContinueButton: Locator;
+    private readonly accountSidebarRegisterLinkLocator: Locator;
 
     constructor(page: Page){
+        
         super(page);
         this.emailTextBoxLocator= page.getByRole('textbox',{name: 'E-Mail Address'});
         this.passwordTextBoxLocator = page.getByRole('textbox', {name: 'Password'});
         this.loginButtonLocator = page.getByRole('button', {name: 'Login'})
         this.errorMessageLocator = page.getByText('Warning: No match for E-Mail Address and/or Password.', { exact: true });
+        this.newCustomerContinueButton = page.getByRole('link', {name: 'Continue'});
+        this.accountSidebarRegisterLinkLocator = page.locator('#column-right').getByRole('link', { name: 'Register', exact: true });
+
 
     }
 
 
-    async setLoginEmailAddress(emailAddress:string) : Promise<this>{
+    async setLoginEmailAddress(emailAddress:string) : Promise<void>{
 
         await this.emailTextBoxLocator.fill(emailAddress);
-        return this;
 
     }
 
-    async setLoginPassword(password: string): Promise<this>{
+    async setLoginPassword(password: string): Promise<void>{
 
         await this.passwordTextBoxLocator.fill(password);
-        return this;
     }
 
-    async clickLoginButton(): Promise<this>{
+    async clickLoginButton(): Promise<void>{
 
         await this.loginButtonLocator.click();
-        return this;
     }
 
      getErrorMessage(): Locator{
@@ -50,6 +53,18 @@ export class LoginPage extends BasePage{
         await this.setLoginPassword(password);
         await this.clickLoginButton();
         
-        
     }
+
+    async clickNewCustomerContinueButton(): Promise<void>{
+
+        await this.newCustomerContinueButton.click();
+    }
+
+     async clickSidebarRegisterLink():Promise<void>{
+
+        await this.accountSidebarRegisterLinkLocator.click();
+    
+    }
+
+
 }

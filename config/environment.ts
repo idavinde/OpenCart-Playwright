@@ -5,7 +5,7 @@ dotenv.config();
 function requireEnvironmentVariable(name: string): string {
   const value = process.env[name];
 
-  if (!value?.trim()) {
+  if (value === undefined) {
     throw new Error(`Missing required environment variable: ${name}`);
   }
 
@@ -14,12 +14,12 @@ function requireEnvironmentVariable(name: string): string {
 
 export const ENV = {
   baseURL: requireEnvironmentVariable('BASE_URL'),
-  email: requireEnvironmentVariable('EMAIL'),
-  password: requireEnvironmentVariable('PASSWORD'),
+  existUserEmail: requireEnvironmentVariable('EMAIL'),
+  existUserPassword: requireEnvironmentVariable('PASSWORD'),
 
   dbHost: requireEnvironmentVariable('DB_HOST'),
   dbUser: requireEnvironmentVariable('DB_USER'),
-  dbPassword: requireEnvironmentVariable('DB_PASSWORD'),
+  dbPassword: process.env.DB_PASSWORD ?? '',
   dbName: requireEnvironmentVariable('DB_NAME'),
   dbPort: requireEnvironmentVariable('DB_PORT'),
 } as const;
